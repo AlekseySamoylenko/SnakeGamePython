@@ -122,8 +122,8 @@ class Snake(GameObject):
         if len(self.positions) > 3 and new_head in self.positions[2:]:
             self.reset()
         else:
-            self.last = (self.positions[-1] if len(self.positions) > self.length
-                        else None)
+            has_length = len(self.positions) > self.length
+            self.last = self.positions[-1] if has_length else None
             self.positions.insert(0, new_head)
             if len(self.positions) > self.length:
                 self.positions.pop()
@@ -166,8 +166,10 @@ def handle_keys(snake):
             if event.key == pygame.K_ESCAPE:
                 pygame.quit()
                 raise SystemExit()
-            elif event.key in [pygame.K_UP, pygame.K_DOWN,
-                             pygame.K_LEFT, pygame.K_RIGHT]:
+            elif event.key in [
+                pygame.K_UP, pygame.K_DOWN,
+                pygame.K_LEFT, pygame.K_RIGHT
+            ]:
                 snake.update_direction(event.key)
 
 
